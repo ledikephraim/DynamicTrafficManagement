@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/DynamicTrafficManager/.vs/DynamicTrafficManager/v16
+/DynamicTrafficManager/Broker/bin/Debug/netcoreapp3.1
+/DynamicTrafficManager/Broker/obj
