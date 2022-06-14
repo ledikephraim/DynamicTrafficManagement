@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SchedulingEngine.APIClients;
+using SchedulingEngine.Services;
+using SchedulingEngine.Services.Contracts;
 
 namespace SchedulingEngine
 {
@@ -19,6 +22,9 @@ namespace SchedulingEngine
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+                    services.AddScoped<ITomTomRestAPI, TomTomRestAPI>();
+                    services.AddScoped<ICalculator, Calculator>();
+                    services.AddScoped<IPublisher, Publisher>();
                 });
     }
 }
