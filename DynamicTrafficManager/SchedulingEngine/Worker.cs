@@ -15,9 +15,9 @@ namespace SchedulingEngine
     {
         private readonly ILogger<Worker> _logger;
         public IServiceProvider Services { get; }
-        private  ITomTomRestAPI _tomTomRestAPI;
-        private  ICalculator _calculator;
-        private  IPublisher _publisher;
+        private ITomTomRestAPI _tomTomRestAPI;
+        private ICalculator _calculator;
+        private IPublisher _publisher;
 
         public Worker(ILogger<Worker> logger,
             IServiceProvider services
@@ -25,7 +25,7 @@ namespace SchedulingEngine
         {
             Services = services;
             _logger = logger;
-       
+
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -56,10 +56,10 @@ namespace SchedulingEngine
                     var flowData = _tomTomRestAPI.GetFlowSegmentDataResponse(coordinate);
                     var northSouthDelay = _calculator.calculateNorthSouthDuration(flowData);
                     var eastWestDelay = _calculator.calculateNorthSouthDuration(flowData);
-                    await _publisher.publishToIntersection("test");
+                    await _publisher.publishToIntersection("test", $"NS={northSouthDelay}|EW={eastWestDelay}");
                 }
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-  
+
                 await Task.Delay(30000, stoppingToken);
             }
         }

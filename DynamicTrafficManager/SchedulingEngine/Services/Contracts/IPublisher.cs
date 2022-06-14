@@ -7,6 +7,6 @@ namespace SchedulingEngine.Services.Contracts
 {
     public interface IPublisher
     {
-        Task publishToIntersection(string topic);
+        Task publishToIntersection(string topic, string payload);
     }
 }

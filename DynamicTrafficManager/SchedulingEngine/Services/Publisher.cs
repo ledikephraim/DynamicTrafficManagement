@@ -1,4 +1,5 @@
 ﻿using SchedulingEngine.Services.Contracts;
+using SchedulingEngine.Utils.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,10 @@ namespace SchedulingEngine.Services
 {
     public class Publisher : IPublisher
     {
-        public Task publishToIntersection(string topic)
+        public async Task publishToIntersection(string topic, string payload)
         {
-            throw new NotImplementedException();
+            await MQTTUtil.ConnectAsync(topic, payload);
+         
         }
     }
 }
