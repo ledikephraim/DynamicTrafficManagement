@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Broker", "Broker\Broker.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficLightUnitClient", "TrafficLightUnitClient\TrafficLightUnitClient.csproj", "{2996AD43-DA23-4D84-90E2-1992D5B3C1F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingEngine", "SchedulingEngine\SchedulingEngine.csproj", "{B5944399-9834-49B1-8FD9-B96ABB0CA846}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2996AD43-DA23-4D84-90E2-1992D5B3C1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2996AD43-DA23-4D84-90E2-1992D5B3C1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2996AD43-DA23-4D84-90E2-1992D5B3C1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5944399-9834-49B1-8FD9-B96ABB0CA846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5944399-9834-49B1-8FD9-B96ABB0CA846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5944399-9834-49B1-8FD9-B96ABB0CA846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5944399-9834-49B1-8FD9-B96ABB0CA846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

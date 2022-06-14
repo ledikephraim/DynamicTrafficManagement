@@ -8,3 +8,5 @@
 /DynamicTrafficManager/Broker/obj
 /DynamicTrafficManager/TrafficLightUnitClient/bin/Debug/netcoreapp3.1
 /DynamicTrafficManager/TrafficLightUnitClient/obj
+/DynamicTrafficManager/SchedulingEngine/bin/Debug/netcoreapp3.1
+/DynamicTrafficManager/SchedulingEngine/obj
