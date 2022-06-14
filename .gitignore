@@ -6,3 +6,5 @@
 /DynamicTrafficManager/.vs/DynamicTrafficManager/v16
 /DynamicTrafficManager/Broker/bin/Debug/netcoreapp3.1
 /DynamicTrafficManager/Broker/obj
+/DynamicTrafficManager/TrafficLightUnitClient/bin/Debug/netcoreapp3.1
+/DynamicTrafficManager/TrafficLightUnitClient/obj
