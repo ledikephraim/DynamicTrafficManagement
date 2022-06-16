@@ -2,6 +2,7 @@
 using MQTTnet.Client;
 using System;
 using System.Device.Gpio;
+using System.Device.Gpio.Drivers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace TrafficLightUnitClient
         private static double EWDuration;
 
         private static bool running = true;
-
+        private static GpioController controller;
         static void Main(string[] args)
         {
 
@@ -33,7 +34,8 @@ namespace TrafficLightUnitClient
                 //configure options
                 _options = new MqttClientOptionsBuilder()
                     .WithClientId("SubscriberId")
-                    .WithTcpServer("localhost", 1884)
+                    //.WithTcpServer("192.168.0.101", 1884)
+                    .WithTcpServer("192.168.0.101", 1884)
                     .WithCredentials("bud", "%spencer%")
                     .WithCleanSession()
                     .Build();
@@ -61,7 +63,7 @@ namespace TrafficLightUnitClient
             }
         }
 
-     
+
 
         private static Task _client_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
@@ -76,7 +78,7 @@ namespace TrafficLightUnitClient
 
             NSDuration = double.Parse(payload.Split('|')[0].Split('=')[1]);
             EWDuration = double.Parse(payload.Split('|')[1].Split('=')[1]);
-     
+
             return Task.FromResult(arg.ApplicationMessage.Topic);
         }
 
@@ -89,10 +91,10 @@ namespace TrafficLightUnitClient
         private async static Task _client_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             Console.WriteLine("Connected successfully with MQTT Brokers.");
-        
 
-              //Subscribe to topic
-              await _client.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("test").Build());
+
+            //Subscribe to topic
+            await _client.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("test").Build());
 
             NSDuration = Constants.DEFAULT_GREENLIGHT_DURATION;
             EWDuration = Constants.DEFAULT_GREENLIGHT_DURATION;
@@ -101,53 +103,74 @@ namespace TrafficLightUnitClient
         private static void ControlLightUnit()
         {
             Console.WriteLine("Blinking LED. Press Ctrl+C to end.");
-           
-            using var controller = LightUnitController.CreateController();
-             
-            controller.OpenPin(12, PinMode.Output, PinValue.Low);
-            controller.OpenPin(20, PinMode.Output, PinValue.Low);
-            controller.OpenPin(21, PinMode.Output, PinValue.Low);
+            
+       
 
-            controller.OpenPin(18, PinMode.Output, PinValue.Low);
-            controller.OpenPin(23, PinMode.Output, PinValue.Low);
-            controller.OpenPin(24, PinMode.Output, PinValue.Low);
-
-            while (running)
+            using (controller = new GpioController(PinNumberingScheme.Logical, new SysFsDriver()))
             {
-                controller.Write(21, PinValue.High);//GREEN ON
-                controller.Write(20, PinValue.Low);//YELLOW OFF
-                controller.Write(12, PinValue.Low);//RED OFF
+                Console.WriteLine($"The pin numbering scheme {controller.NumberingScheme}");
+                Console.WriteLine($"The pin 12 supported scheme {controller.IsPinModeSupported(21, PinMode.Output)}");
+
+                // controller.OpenPin(12, PinMode.Output, PinValue.Low);
+                // controller.OpenPin(20, PinMode.Output, PinValue.Low);
+                // controller.OpenPin(21, PinMode.Output, PinValue.Low);
+                //
+                // controller.OpenPin(18, PinMode.Output, PinValue.Low);
+                // controller.OpenPin(23, PinMode.Output, PinValue.Low);
+                // controller.OpenPin(24, PinMode.Output, PinValue.Low);
+
+                try
+                {
+                    controller.OpenPin(12, PinMode.Output);
+                    controller.OpenPin(20, PinMode.Output);
+                    controller.OpenPin(21, PinMode.Output);
+
+                    controller.OpenPin(18, PinMode.Output);
+                    controller.OpenPin(23, PinMode.Output);
+                    controller.OpenPin(24, PinMode.Output);
+
+                    while (running)
+                    {
+                        controller.Write(21, PinValue.High);//GREEN ON
+                        controller.Write(20, PinValue.Low);//YELLOW OFF
+                        controller.Write(12, PinValue.Low);//RED OFF
 
 
-                controller.Write(18, PinValue.High);//RED ON
-                controller.Write(23, PinValue.Low);//YELLOW OFF
-                controller.Write(24, PinValue.Low);//GREEN OFF
+                        controller.Write(18, PinValue.High);//RED ON
+                        controller.Write(23, PinValue.Low);//YELLOW OFF
+                        controller.Write(24, PinValue.Low);//GREEN OFF
+                        Console.WriteLine($"seeping for direction NS with value {NSDuration}");
+                        Thread.Sleep((int)NSDuration);
 
-                Thread.Sleep(1000);
+
+                        controller.Write(21, PinValue.Low);//GREEN OFF
+                        controller.Write(20, PinValue.High);//YELLOW ON
+                        controller.Write(12, PinValue.Low);//RED OFF
+
+                        Thread.Sleep(1000);
+
+                        controller.Write(21, PinValue.Low);//GREEN OFF
+                        controller.Write(20, PinValue.Low);//YELLOW OFF
+                        controller.Write(12, PinValue.High);//RED ON
+
+                        controller.Write(18, PinValue.Low);//RED OFF
+                        controller.Write(23, PinValue.Low);//YELLOW OFF
+                        controller.Write(24, PinValue.High);//GREEN ON
+
+                        Console.WriteLine($"seeping for direction EW with value {EWDuration}");
+                        Thread.Sleep((int)EWDuration);
+
+                        controller.Write(23, PinValue.High);//YELLOW ON
+                        controller.Write(24, PinValue.Low);//GREEN OFF
 
 
-                controller.Write(21, PinValue.Low);//GREEN OFF
-                controller.Write(20, PinValue.High);//YELLOW ON
-                controller.Write(12, PinValue.Low);//RED OFF
+                        Thread.Sleep(1000);
 
-                Thread.Sleep(1000);
-
-                controller.Write(21, PinValue.Low);//GREEN OFF
-                controller.Write(20, PinValue.Low);//YELLOW OFF
-                controller.Write(12, PinValue.High);//RED ON
-
-                controller.Write(18, PinValue.Low);//RED OFF
-                controller.Write(23, PinValue.Low);//YELLOW OFF
-                controller.Write(24, PinValue.High);//GREEN ON
-
-                Thread.Sleep(1000);
-
-                controller.Write(23, PinValue.High);//YELLOW ON
-                controller.Write(24, PinValue.Low);//GREEN OFF
-
-                Thread.Sleep(1000);
-
-        
+                    }
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

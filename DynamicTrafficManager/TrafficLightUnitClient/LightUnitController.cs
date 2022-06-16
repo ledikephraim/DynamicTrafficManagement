@@ -8,9 +8,10 @@ namespace TrafficLightUnitClient
 {
     public  class LightUnitController
     {
-        public static GpioController controller = new GpioController();
+        public static GpioController controller = new GpioController(PinNumberingScheme.Board);
         public static GpioController CreateController()
         {
+            
             return controller;
         }
 

@@ -11,3 +11,6 @@
 /DynamicTrafficManager/SchedulingEngine/bin/Debug/netcoreapp3.1
 /DynamicTrafficManager/SchedulingEngine/obj
 /DynamicTrafficManager/.vs/DynamicTrafficManager/DesignTimeBuild
+/DynamicTrafficManager/TrafficLightUnitClient/bin/Release/netcoreapp3.1
+/DynamicTrafficManager/TrafficLightUnitClient/Properties/PublishProfiles
+*.user

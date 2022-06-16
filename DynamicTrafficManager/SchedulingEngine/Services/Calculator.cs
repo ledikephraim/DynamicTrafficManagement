@@ -21,10 +21,16 @@ namespace SchedulingEngine.Services
         private double calculatePassDuration(FlowSegmentDataResponse flowSegmentData)
         {
             //ToDo: Update calculation
-            var change = flowSegmentData.flowSegmentData.currentSpeed / flowSegmentData.flowSegmentData.freeFlowSpeed * 100;
-            if (change > Constants.GLOBAL_TRAVEL_SPEED_THRESHOLD)
+            try
             {
-                return change * flowSegmentData.flowSegmentData.currentSpeed;
+                var change = flowSegmentData.flowSegmentData.currentSpeed / flowSegmentData.flowSegmentData.freeFlowSpeed * 100;
+                if (change > Constants.GLOBAL_TRAVEL_SPEED_THRESHOLD)
+                {
+                    return change * flowSegmentData.flowSegmentData.currentSpeed;
+                }
+            }
+            catch (Exception)
+            {
             }
             return Constants.DEFAULT_SIGNAL_DURATION;
         }
