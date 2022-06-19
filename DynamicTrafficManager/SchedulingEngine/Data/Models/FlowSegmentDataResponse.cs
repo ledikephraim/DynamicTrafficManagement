@@ -19,9 +19,9 @@ namespace SchedulingEngine.Data.Models
     public class FlowSegmentData
     {
         public string frc { get; set; }
-        public int currentSpeed { get; set; }
-        public int freeFlowSpeed { get; set; }
-        public int currentTravelTime { get; set; }
+        public double currentSpeed { get; set; }
+        public double freeFlowSpeed { get; set; }
+        public double currentTravelTime { get; set; }
         public int freeFlowTravelTime { get; set; }
         public int confidence { get; set; }
         public bool roadClosure { get; set; }

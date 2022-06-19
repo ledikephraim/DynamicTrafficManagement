@@ -35,7 +35,7 @@ namespace TrafficLightUnitClient
                 _options = new MqttClientOptionsBuilder()
                     .WithClientId("SubscriberId")
                     //.WithTcpServer("192.168.0.101", 1884)
-                    .WithTcpServer("192.168.0.101", 1884)
+                    .WithTcpServer("192.168.0.128", 1884)
                     .WithCredentials("bud", "%spencer%")
                     .WithCleanSession()
                     .Build();

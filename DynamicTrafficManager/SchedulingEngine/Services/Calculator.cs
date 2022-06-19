@@ -23,10 +23,11 @@ namespace SchedulingEngine.Services
             //ToDo: Update calculation
             try
             {
-                var change = flowSegmentData.flowSegmentData.currentSpeed / flowSegmentData.flowSegmentData.freeFlowSpeed * 100;
+                var change = (flowSegmentData.flowSegmentData.currentSpeed - flowSegmentData.flowSegmentData.freeFlowSpeed) /
+                    flowSegmentData.flowSegmentData.freeFlowSpeed *100 *-1;
                 if (change > Constants.GLOBAL_TRAVEL_SPEED_THRESHOLD)
                 {
-                    return change * flowSegmentData.flowSegmentData.currentSpeed;
+                    return ((change /100)+1)* Constants.DEFAULT_SIGNAL_DURATION;
                 }
             }
             catch (Exception)

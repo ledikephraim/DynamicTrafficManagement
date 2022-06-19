@@ -24,7 +24,7 @@ namespace SchedulingEngine.APIClients
             uriBuilder.Scheme = "https";
             uriBuilder.Host = APIClientConfiguration.BaseUrl;
             uriBuilder.Path = $"flowSegmentData/relative0/10/json";
-            uriBuilder.Query = $"point=52.41072%2C4.84239&unit=KMPH&openLr=false&key={APIClientConfiguration.APIKey}"; 
+            uriBuilder.Query = $"point=-26.039241%2C28.189747&unit=KMPH&openLr=false&key={APIClientConfiguration.APIKey}"; 
             RestClientOptions restClientOptions = new RestClientOptions(uriBuilder.Uri);
             
             var client = new RestClient(restClientOptions);

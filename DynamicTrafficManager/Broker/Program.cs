@@ -13,30 +13,21 @@ namespace Broker
             //configure options
             MqttServerOptions options = new MqttServerOptions();
             var optionsBuilder = new MqttServerOptionsBuilder()
-                /*.WithConnectionValidator(c =>
-                {
-                    Console.WriteLine($"{c.ClientId} connection validator for c.Endpoint: {c.Endpoint}");
-                    c.ReasonCode = MqttConnectReasonCode.Success;
-                })
-                .WithApplicationMessageInterceptor(context =>
-                {
-                    //Console.WriteLine("WithApplicationMessageInterceptor block merging data");
-                    //var newData = Encoding.UTF8.GetBytes(DateTime.Now.ToString("O"));
-                    //var oldData = context.ApplicationMessage.Payload;
-                    //var mergedData = newData.Concat(oldData).ToArray();
-                    //context.ApplicationMessage.Payload = mergedData;
-                })*/
+
+                .WithDefaultEndpoint()
                 .WithConnectionBacklog(100)
                 .WithDefaultEndpointPort(1884);
 
 
 
             //start server
-            var mqttServer = new MqttFactory().CreateMqttServer(optionsBuilder.Build());//.CreateMqttServer();
-            mqttServer.InterceptingInboundPacketAsync += MqttServer_InterceptingInboundPacketAsync;
-            mqttServer.StartAsync().Wait();//StartAsync(optionsBuilder.Build()).Wait();
 
-            Console.WriteLine($"Broker is Running: Host:");// {mqttServer.//Options.DefaultEndpointOptions.BoundInterNetworkAddress} Port: {mqttServer.Options.DefaultEndpointOptions.Port}");
+            var mqttServer = new MqttFactory().CreateMqttServer(optionsBuilder.Build());
+            mqttServer.InterceptingInboundPacketAsync += MqttServer_InterceptingInboundPacketAsync;
+            mqttServer.StartedAsync += MqttServer_StartedAsync;
+            mqttServer.StartAsync().Wait();
+
+            Console.WriteLine($"Broker is Running");
             Console.WriteLine("Press any key to exit.");
             Console.ReadLine();
 
@@ -47,11 +38,19 @@ namespace Broker
             mqttServer.StopAsync().Wait();
         }
 
+        private static Task MqttServer_StartedAsync(EventArgs arg)
+        {
+
+            Console.WriteLine($"The connection details : {arg}");
+            return Task.FromResult(arg);
+        }
+
         private static Task MqttServer_InterceptingInboundPacketAsync(InterceptingPacketEventArgs arg)
         {
-            string what = arg.Endpoint;
+            string endpoint = arg.Endpoint;
+            Console.WriteLine($"Endpoint :{arg.Endpoint}");
 
-            return Task.FromResult(what);
+            return Task.FromResult(endpoint);
         }
     }
 }
