@@ -1,0 +1,36 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="95%">
+  
+      <mat-card>
+        <mat-card-content>
+          <h2>Intersections</h2>
+  
+          <table mat-table [dataSource]="dataSource" matSort>
+  
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="longitude">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Longitude </th>
+              <td mat-cell *matCellDef="let element"> {{element.longitude}} </td>
+            </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="latitude">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Latitude </th>
+                <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+              </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          
+        </mat-card-content>
+      </mat-card>
+  
+    </div>
+  </div>

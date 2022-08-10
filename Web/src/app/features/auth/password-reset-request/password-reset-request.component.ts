@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-password-reset-request',
@@ -16,6 +17,7 @@ export class PasswordResetRequestComponent implements OnInit {
   private email!: string;
   form!: FormGroup;
   loading!: boolean;
+  appTitle = environment.applicationName;
 
   constructor(private authService: AuthenticationService,
     private notificationService: NotificationService,
@@ -23,7 +25,7 @@ export class PasswordResetRequestComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle('angular-material-template - Password Reset Request');
+    this.titleService.setTitle(`${this.appTitle} - Password Reset Request`);
 
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email])

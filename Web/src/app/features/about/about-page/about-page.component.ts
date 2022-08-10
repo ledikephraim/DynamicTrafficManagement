@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-about-page',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AboutPageComponent {
 
+  appTitle = environment.applicationName;
   constructor() { }
 
 }

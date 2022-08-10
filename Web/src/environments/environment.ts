@@ -9,5 +9,6 @@ export const environment = {
   production: false,
   logLevel: NgxLoggerLevel.TRACE,
   serverLogLevel: NgxLoggerLevel.OFF,
-  trafficManagementAPI: 'https://localhost:7021'
+  trafficManagementAPI: 'https://localhost:7021',
+  applicationName: 'Traffic Management Portal'
 };

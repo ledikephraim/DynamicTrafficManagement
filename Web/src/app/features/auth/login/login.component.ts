@@ -4,6 +4,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
     loginForm!: FormGroup;
     loading!: boolean;
+    appTitle = environment.applicationName;
 
     constructor(private router: Router,
         private titleService: Title,
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.titleService.setTitle('angular-material-template - Login');
+        this.titleService.setTitle(`${this.appTitle} - Login`);
         this.authenticationService.logout();
         this.createForm();
     }

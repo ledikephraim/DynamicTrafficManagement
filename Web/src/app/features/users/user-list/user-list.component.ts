@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 
 import { NGXLogger } from 'ngx-logger';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-list',
@@ -11,6 +12,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class UserListComponent implements OnInit {
 
+  appTitle = environment.applicationName;
   constructor(
     private logger: NGXLogger,
     private notificationService: NotificationService,
@@ -18,7 +20,7 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('angular-material-template - Users');
+    this.titleService.setTitle(`${this.appTitle} - Users`);
     this.logger.log('Users loaded');
   }
 }

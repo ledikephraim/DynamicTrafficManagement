@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { NGXLogger } from 'ngx-logger';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RegionService } from 'src/app/core/services/region.service';
+import { environment } from 'src/environments/environment';
 
 export interface Region {
   id: number;
@@ -23,6 +24,7 @@ export class RegionListComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true })
   sort: MatSort = new MatSort;
+  appTitle = environment.applicationName;
   constructor(
     private logger: NGXLogger,
     private notificationService: NotificationService,
@@ -31,7 +33,7 @@ export class RegionListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('angular-material-template - Customers');
+    this.titleService.setTitle(`${this.appTitle} - Customers`);
     this.regionService.getRegions().subscribe(regions=>{
       this.regions = regions;
       this.dataSource.data = this.regions;
