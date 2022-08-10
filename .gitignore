@@ -14,3 +14,6 @@
 /DynamicTrafficManager/TrafficLightUnitClient/bin/Release/netcoreapp3.1
 /DynamicTrafficManager/TrafficLightUnitClient/Properties/PublishProfiles
 *.user
+/DynamicTrafficManager/.vs/DynamicTrafficManager
+/DynamicTrafficManager/ManagementAPI/bin/Debug/net6.0
+/DynamicTrafficManager/ManagementAPI/obj
