@@ -43,5 +43,8 @@ export class RegionListComponent implements OnInit {
       this.notificationService.openSnackBar('Regions loaded');
     });
   }
+  getRecord(row:any){
+    console.log('the row ', row);
+  }
 
 }

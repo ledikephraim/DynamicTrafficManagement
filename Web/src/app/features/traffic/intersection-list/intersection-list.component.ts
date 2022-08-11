@@ -43,5 +43,8 @@ export class IntersectionListComponent implements OnInit {
       this.notificationService.openSnackBar('Intersections loaded');
     });
   }
+  getRecord(row:any){
+    console.log('the row ', row);
+  }
 
 }
