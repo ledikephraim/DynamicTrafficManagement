@@ -22,6 +22,7 @@ namespace ManagementAPI.Controllers
         {
             return db.Regions.ToArray();
         }
+
         [HttpPost(Name = "CreateRegion")]
         public IActionResult Post(Region model)
         {
@@ -38,6 +39,7 @@ namespace ManagementAPI.Controllers
             if (region == null)
                 return NotFound();
             region.Name = model.Name;
+            region.Intersections = model.Intersections;
 
             db.Update(region);
             db.SaveChanges();
