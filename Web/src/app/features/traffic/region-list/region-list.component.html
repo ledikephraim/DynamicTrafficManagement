@@ -4,7 +4,9 @@
       <mat-card>
         <mat-card-content>
           <h2>Regions</h2>
-  
+          <div class="col-sm">
+            <button mat-button mat-raised-button color="primary" (click)="openTempDialog()">Create Region</button>
+          </div>
           <table mat-table [dataSource]="dataSource" matSort>
   
             <!-- Position Column -->
@@ -28,3 +30,27 @@
   
     </div>
   </div>
+  <ng-template #dialogRef let-mydata>
+    <h5>Create Region</h5>
+    <form [formGroup]="userForm">
+      <div class="ms-form-group has-icon">
+        <div class="row">
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>Region Name</mat-label>
+              <input matInput placeholder="e.g Centurion" formControlName="name">
+              <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+          </p>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button   mat-button  mat-raised-button color="warn" #modalClose data-dismiss="dialogRef"
+          (click)="onClose()">Close</button>
+        <button mat-button  mat-raised-button color="primary" (click)="save()">Save
+          changes</button>
+      </div>
+    </form>
+  </ng-template>
