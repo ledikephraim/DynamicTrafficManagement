@@ -46,5 +46,10 @@ export class IntersectionListComponent implements OnInit {
   getRecord(row:any){
     console.log('the row ', row);
   }
+  openTempDialog() {
+    //const myTempDialog = this.dialog.open(this.dialogRef);
+   // myTempDialog.afterClosed().subscribe((res) => {
+   // });
+  }
 
 }
